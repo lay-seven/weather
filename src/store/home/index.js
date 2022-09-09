@@ -22,7 +22,8 @@ const state = {
         windDir: '',
         windScale: '',
         windSpeed: '',
-        isShow:false,
+        tz: 'Asia/Shanghai',
+        isShow: false,
     }
 };
 
@@ -31,7 +32,8 @@ const actions = {
     async cityCode({ commit }, inputCity) {
         let result = await reqCityCode(inputCity);
         if (result.code == 200) {
-
+            commit('TZ', result.location[0].tz)
+            console.log(result);
             let locationId = { location: result.location[0].id };
             // console.log(locationId);
             let weather = await reqWeather(locationId);
@@ -43,7 +45,7 @@ const actions = {
                 console.log(weather);
             }
             // commit("CITYCODE", weather.data)
-        } else if(result.code == 404){
+        } else if (result.code == 404) {
             console.log('404错误', result);
             commit('NOTFOUND')
         }
@@ -71,6 +73,10 @@ const mutations = {
         weather.windDir = weatherMsg.windDir;
         weather.windScale = weatherMsg.windScale;
         weather.windSpeed = weatherMsg.windSpeed;
+    },
+    TZ({ weather }, tz) {
+        weather.tz = tz;
+        console.log(weather.tz);
     },
     NOTFOUND(state) {
         alert('当前城市暂无数据')

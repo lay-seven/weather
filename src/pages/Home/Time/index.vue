@@ -8,12 +8,21 @@
     <div class="time_middle">{{ hour }}:{{ min }}:{{ second }}</div>
 
     <!-- 显示农历（开发中） -->
-    <div class="time_right"></div>
+    <div class="time_right">
+      <span class="tz">
+        {{ tz }}
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 import dayjs from "dayjs";
+let utc = require("dayjs/plugin/utc");
+let timezone = require("dayjs/plugin/timezone"); // dependent on utc plugin
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export default {
   name: "Time",
@@ -25,11 +34,13 @@ export default {
       hour: "00",
       min: "00",
       second: "00",
-      timer1:null,
+      timer1: null,
     };
   },
-  computed:{
-    
+  computed: {
+    ...mapState({
+      tz: (state) => state.home.weather.tz,
+    }),
   },
   //   消除挂载前的000000
   created() {
@@ -42,21 +53,23 @@ export default {
     this.second = time.slice(12);
   },
   mounted() {
+    // console.log(universal,tokyo,china);
     // 开启定时器，每秒刷新时间
     this.timer1 = setInterval(() => {
-      let time = dayjs().format("YYYYMMDDHHmmss");
+      let time = dayjs().tz(this.tz).format("YYYYMMDDHHmmss");
       //   this.year = time.slice(0, 4);  //由于年份与月份变更太少，暂时写死
       //   this.month = time.slice(4, 6);
       this.day = time.slice(6, 8);
       this.hour = time.slice(8, 10);
       this.min = time.slice(10, 12);
       this.second = time.slice(12);
+      console.log("计时+1");
     }, 1000);
   },
   beforeDestroy() {
-    clearInterval(this.timer1)
-    console.log('定时器被清除');
-  }
+    clearInterval(this.timer1);
+    console.log("定时器被清除");
+  },
 };
 </script>
 
@@ -117,7 +130,14 @@ export default {
   width: 25%;
   height: 110px;
   line-height: 110px;
-  font-size: 3em;
+  font-size: 24px;
   /* background-color: rgb(250, 179, 47); */
+}
+.tz {
+  display: table-cell;
+  vertical-align: middle;
+  /* display: inline-block;
+  vertical-align: middle;
+  line-height: 18px; */
 }
 </style>
