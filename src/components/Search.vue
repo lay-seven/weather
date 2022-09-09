@@ -41,10 +41,13 @@ export default {
   },
   methods: {
     submit() {
+      // 修改isShow，展示weather界面
       this.$store.state.home.weather.isShow = false;
+      // 储存城市名到状态管理库
       this.$store.state.home.city = this.inputCity.location;
       // console.log(this.$store.state.home.city);
       this.$store.dispatch('home/cityCode',this.inputCity);
+      // 清空搜索输入框
       this.inputCity.location = '';
     }
   },

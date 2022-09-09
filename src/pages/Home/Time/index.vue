@@ -7,7 +7,7 @@
     <!-- 显示时间 -->
     <div class="time_middle">{{ hour }}:{{ min }}:{{ second }}</div>
 
-    <!-- 显示农历 -->
+    <!-- 显示农历（开发中） -->
     <div class="time_right"></div>
   </div>
 </template>
@@ -42,9 +42,10 @@ export default {
     this.second = time.slice(12);
   },
   mounted() {
+    // 开启定时器，每秒刷新时间
     this.timer1 = setInterval(() => {
       let time = dayjs().format("YYYYMMDDHHmmss");
-      //   this.year = time.slice(0, 4);
+      //   this.year = time.slice(0, 4);  //由于年份与月份变更太少，暂时写死
       //   this.month = time.slice(4, 6);
       this.day = time.slice(6, 8);
       this.hour = time.slice(8, 10);

@@ -6,6 +6,7 @@ body,
     margin: 0;
     padding: 0;
 }
+/* 此处设置全屏背景图 */
 .login{
     background:url("~@/assets/images/10001.jfif");
     width:100%;

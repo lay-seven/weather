@@ -52,6 +52,7 @@ export default {
       windScale: (state) => state.home.weather.windScale, // 风力等级
       windSpeed: (state) => state.home.weather.windSpeed, // 风速
     }),
+    // 动态展示天气icon图标
     iconPath() {
       switch (this.icon) {
         case "100":
@@ -117,6 +118,7 @@ export default {
       }
     },
     greeting() {
+      // 欢迎语
       let time = parseInt(this.$store.state.home.hour, 10);
       if (time >= 0 && time < 11) return "早上好";
       if (time >= 11 && time <= 14) return "中午好";
