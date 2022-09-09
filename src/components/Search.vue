@@ -14,7 +14,7 @@
         <!-- <transition name="search"> -->
           <!-- 搜索部分 -->
           <div class="search">
-            <input type="text" class="input" v-model="inputCity"/>
+            <input type="text" class="input" v-model="inputCity.location"/>
             <span class="btn_box">
               <!-- 搜索按钮 -->
               <input type="submit" @click="submit" class="btn_search" value="查询天气" />
@@ -35,7 +35,9 @@ export default {
   data() {
     return {
       input: "",
-      inputCity:'',
+      inputCity:{
+        location:'',
+      },
     };
   },
   computed:{
@@ -44,7 +46,8 @@ export default {
   },
   methods: {
     submit() {
-      
+      this.$store.dispatch('home/cityCode',this.inputCity);
+      this.inputCity.location = '';
     }
   },
 };

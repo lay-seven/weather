@@ -3,8 +3,10 @@
     <!-- <h1>我是weather</h1> -->
     <!-- <img src="@/assets/images/icons/100-fill.svg" alt="QWeather" width="64" height="64"> -->
     <div class="weather01">
-        <div class="weather01_top"></div>
-        <div class="weather01_bottom"></div>
+      <div class="weather01_top">
+        <img v-show="icon" :src="iconPath" class="icons" alt="weather" />
+      </div>
+      <div class="weather01_bottom"></div>
     </div>
     <div class="weather02"></div>
     <div class="weather03"></div>
@@ -13,57 +15,141 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-    name:'Weather',
-}
+  name: "Weather",
+  computed: {
+    ...mapState({
+      icon: (state) => state.home.weather.icon,
+    }),
+    iconPath() {
+      switch (this.icon) {
+        case "100":
+          return require(`../../../assets/icons/100-fill.svg`);
+        case "101":
+          return require(`../../../assets/icons/101-fill.svg`);
+        case "102":
+          return require(`../../../assets/icons/102-fill.svg`);
+        case "103":
+          return require(`../../../assets/icons/103-fill.svg`);
+        case "104":
+          return require(`../../../assets/icons/104-fill.svg`);
+        case "150":
+          return require(`../../../assets/icons/150-fill.svg`);
+        case "151":
+          return require(`../../../assets/icons/151-fill.svg`);
+        case "152":
+          return require(`../../../assets/icons/152-fill.svg`);
+        case "153":
+          return require(`../../../assets/icons/153-fill.svg`);
+        case "300":
+          return require(`../../../assets/icons/300-fill.svg`);
+        case "301":
+          return require(`../../../assets/icons/301-fill.svg`);
+        case "302":
+          return require(`../../../assets/icons/302-fill.svg`);
+        case "303":
+          return require(`../../../assets/icons/303-fill.svg`);
+        case "304":
+          return require(`../../../assets/icons/304-fill.svg`);
+        case "305":
+          return require(`../../../assets/icons/305-fill.svg`);
+        case "306":
+          return require(`../../../assets/icons/306-fill.svg`);
+        case "307":
+          return require(`../../../assets/icons/307-fill.svg`);
+        case "308":
+          return require(`../../../assets/icons/308-fill.svg`);
+        case "309":
+          return require(`../../../assets/icons/309-fill.svg`);
+        case "310":
+          return require(`../../../assets/icons/310-fill.svg`);
+        case "311":
+          return require(`../../../assets/icons/311-fill.svg`);
+        case "312":
+          return require(`../../../assets/icons/312-fill.svg`);
+        case "313":
+          return require(`../../../assets/icons/313-fill.svg`);
+        case "314":
+          return require(`../../../assets/icons/314-fill.svg`);
+        case "315":
+          return require(`../../../assets/icons/315-fill.svg`);
+        case "316":
+          return require(`../../../assets/icons/316-fill.svg`);
+        case "317":
+          return require(`../../../assets/icons/317-fill.svg`);
+        case "318":
+          return require(`../../../assets/icons/318-fill.svg`);
+        case "350":
+          return require(`../../../assets/icons/350-fill.svg`);
+        case "351":
+          return require(`../../../assets/icons/351-fill.svg`);
+      }
+    },
+  },
+  mounted() {
+    console.log(this.icon);
+  },
+};
 </script>
 
 <style>
-.weather_container{
-    /* border: 0; */
-    position: relative;
-    width: 100%;
-    height: 160px;
-    background-color: yellowgreen;
+.icons {
+  width: 64px;
+  height: 64px;
+  line-height: 80px;
 }
-.weather01{
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 25%;
-    height: 100%;
+.weather_container {
+  /* border: 0; */
+  position: relative;
+  width: 100%;
+  height: 160px;
+  background-color: yellowgreen;
 }
-.weather01_top{
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
+.weather01 {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
 }
-.weather01_bottom{
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
+.weather01_top {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  /*使子项目垂直居中*/
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
 }
-.weather02{
-    position: absolute;
-    left: 25%;
-    top: 0;
-    width: 25%;
-    height: 100%;
-}.weather03{
-    position: absolute;
-    right: 25%;
-    top: 0;
-    width: 25%;
-    height: 100%;
-}.weather04{
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 25%;
-    height: 100%;
+.weather01_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+}
+.weather02 {
+  position: absolute;
+  left: 25%;
+  top: 0;
+  width: 25%;
+  height: 100%;
+}
+.weather03 {
+  position: absolute;
+  right: 25%;
+  top: 0;
+  width: 25%;
+  height: 100%;
+}
+.weather04 {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 25%;
+  height: 100%;
 }
 </style>

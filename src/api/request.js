@@ -11,7 +11,7 @@ import "nprogress/nprogress.css"
 const request = axios.create({
     // 配置对象
     // 基础路径，发请求时，路径中自动出现/api
-    baseURL: "/api",
+    // baseURL: "/api",
     // 代表请求超时时间
     timeout: 5000,
 
@@ -22,6 +22,7 @@ request.interceptors.request.use((config) => {
     // config 配置对象
     // 进度条开始
     nprogress.start();
+    config.params.key = '3167dcff0df247b2925882d0011099eb';
     return config;
 })
 // 响应拦截器
