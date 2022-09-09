@@ -14,7 +14,7 @@
         <!-- <transition name="search"> -->
           <!-- 搜索部分 -->
           <div class="search">
-            <input type="text" class="input" v-model="inputCity.location"/>
+            <input type="text" class="input" placeholder="请输入城市" v-model="inputCity.location"/>
             <span class="btn_box">
               <!-- 搜索按钮 -->
               <input type="submit" @click="submit" class="btn_search" value="查询天气" />
@@ -29,7 +29,6 @@
 
 
 <script>
-import {mapState} from 'vuex'
 export default {
   name: "Search",
   data() {
@@ -40,12 +39,11 @@ export default {
       },
     };
   },
-  computed:{
-    // 解构store中home文件的city
-    ...mapState('home',['city']),
-  },
   methods: {
     submit() {
+      this.$store.state.home.weather.isShow = false;
+      this.$store.state.home.city = this.inputCity.location;
+      // console.log(this.$store.state.home.city);
       this.$store.dispatch('home/cityCode',this.inputCity);
       this.inputCity.location = '';
     }

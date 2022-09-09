@@ -1,16 +1,33 @@
 <template>
-  <div class="weather_container">
-    <!-- <h1>我是weather</h1> -->
-    <!-- <img src="@/assets/images/icons/100-fill.svg" alt="QWeather" width="64" height="64"> -->
-    <div class="weather01">
-      <div class="weather01_top">
-        <img v-show="icon" :src="iconPath" class="icons" alt="weather" />
+  <div class="weather_top_container">
+    <transition name="weather">
+      <div class="weather_container" v-show="isShow">
+        <!-- <h1>我是weather</h1> -->
+        <!-- <img src="@/assets/images/icons/100-fill.svg" alt="QWeather" width="64" height="64"> -->
+        <div class="weather01">
+          <div class="weather01_top">
+            <img v-show="icon" :src="iconPath" class="icons" alt="weather" />
+          </div>
+          <div class="weather01_bottom">
+            {{ text }}
+            <div class="location">
+              {{ cityName }}
+            </div>
+          </div>
+        </div>
+        <div class="weather02">
+          <div class="weather02_top">{{ temp }}℃</div>
+          <div class="weather02_middle">体感温度：{{ feelsLike }}℃</div>
+          <div class="weather02_bottom">相对湿度：{{ humidity }}%</div>
+        </div>
+        <div class="weather03">
+          <div class="weather03_top">{{ windDir }}</div>
+          <div class="weather03_middle">风力:{{ windScale }}级</div>
+          <div class="weather03_bottom">风速{{ windSpeed }} km/h</div>
+        </div>
+        <div class="weather04">{{ greeting }}</div>
       </div>
-      <div class="weather01_bottom"></div>
-    </div>
-    <div class="weather02"></div>
-    <div class="weather03"></div>
-    <div class="weather04"></div>
+    </transition>
   </div>
 </template>
 
@@ -20,7 +37,20 @@ export default {
   name: "Weather",
   computed: {
     ...mapState({
+      isShow: (state) => state.home.weather.isShow,
+      cityName: (state) => state.home.city,
       icon: (state) => state.home.weather.icon,
+      dew: (state) => state.home.weather.dew,
+      feelsLike: (state) => state.home.weather.feelsLike, // 体感温度 1
+      humidity: (state) => state.home.weather.humidity, // 相对湿度，百分比数值 1
+      obsTime: (state) => state.home.weather.obsTime, // 观测时间 1
+      precip: (state) => state.home.weather.precip, // 当前小时累计降雨量
+      temp: (state) => state.home.weather.temp, // 温度
+      text: (state) => state.home.weather.text,
+      vis: (state) => state.home.weather.vis, //能见度
+      windDir: (state) => state.home.weather.windDir, // 风向
+      windScale: (state) => state.home.weather.windScale, // 风力等级
+      windSpeed: (state) => state.home.weather.windSpeed, // 风速
     }),
     iconPath() {
       switch (this.icon) {
@@ -86,14 +116,21 @@ export default {
           return require(`../../../assets/icons/351-fill.svg`);
       }
     },
-  },
-  mounted() {
-    console.log(this.icon);
+    greeting() {
+      let time = parseInt(this.$store.state.home.hour, 10);
+      if (time >= 0 && time < 11) return "早上好";
+      if (time >= 11 && time <= 14) return "中午好";
+      if (time >= 14 && time <= 18) return "下午好";
+      return "晚上好";
+    },
   },
 };
 </script>
 
 <style>
+.weather_top_container{
+  overflow: hidden;
+}
 .icons {
   width: 64px;
   height: 64px;
@@ -104,7 +141,11 @@ export default {
   position: relative;
   width: 100%;
   height: 160px;
-  background-color: yellowgreen;
+  background-color: #fff;
+  border: 1px solid skyblue;
+  border-radius: 10px;
+  overflow: hidden;
+  /* background-color: yellowgreen; */
 }
 .weather01 {
   position: absolute;
@@ -130,6 +171,17 @@ export default {
   left: 0;
   width: 100%;
   height: 50%;
+  font-size: 18px;
+}
+.location {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 60%;
+  font-size: 32px;
+  line-height: 48px;
+  /* background-color: rgb(127, 25, 42); */
 }
 .weather02 {
   position: absolute;
@@ -137,6 +189,60 @@ export default {
   top: 0;
   width: 25%;
   height: 100%;
+}
+.weather02_top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  font-size: 3em;
+  line-height: 80px;
+}
+.weather02_middle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  font-size: 18px;
+  line-height: 40px;
+}
+.weather02_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  font-size: 18px;
+  line-height: 40px;
+}
+.weather03_top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  font-size: 3em;
+  line-height: 80px;
+}
+.weather03_middle {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  font-size: 18px;
+  line-height: 40px;
+}
+.weather03_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  font-size: 18px;
+  line-height: 40px;
 }
 .weather03 {
   position: absolute;
@@ -151,5 +257,31 @@ export default {
   top: 0;
   width: 25%;
   height: 100%;
+  font-size: 2em;
+  line-height: 160px;
 }
+.weather-enter-active{
+		animation: animation1 0.5s ;
+	}
+
+	.weather-leave-active{
+		animation: animation2 0.5s;
+	}
+
+	@keyframes animation1 {
+		from{
+			transform: translateY(-100%);
+		}
+		to{
+			transform: translateY(0px);
+		}
+	}
+  @keyframes animation2 {
+		from{
+			transform: translateY(0px);
+		}
+		to{
+			transform: translateY(100%);
+		}
+	}
 </style>

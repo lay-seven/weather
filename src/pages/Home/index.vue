@@ -32,7 +32,7 @@ export default {
   position: relative;
   width: 100%;
   height: 600px;
-  background-color: pink;
+  /* background-color: pink; */
   text-align: center;
 }
 .container {
@@ -40,7 +40,7 @@ export default {
   width: 587px;
   height: 100%;
   margin: 0 auto;
-  background-color: skyblue;
+  /* background-color: skyblue; */
   text-align: center;
 }
 </style>
