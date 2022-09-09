@@ -8,7 +8,7 @@
     <div class="time_middle">{{ hour }}:{{ min }}:{{ second }}</div>
 
     <!-- 显示农历 -->
-    <div class="time_right">晚上好</div>
+    <div class="time_right"></div>
   </div>
 </template>
 
@@ -25,9 +25,12 @@ export default {
       hour: "00",
       min: "00",
       second: "00",
+      timer1:null,
     };
   },
-
+  computed:{
+    
+  },
   //   消除挂载前的000000
   created() {
     let time = dayjs().format("YYYYMMDDHHmmss");
@@ -39,7 +42,7 @@ export default {
     this.second = time.slice(12);
   },
   mounted() {
-    setInterval(() => {
+    this.timer1 = setInterval(() => {
       let time = dayjs().format("YYYYMMDDHHmmss");
       //   this.year = time.slice(0, 4);
       //   this.month = time.slice(4, 6);
@@ -49,6 +52,10 @@ export default {
       this.second = time.slice(12);
     }, 1000);
   },
+  beforeDestroy() {
+    clearInterval(this.timer1)
+    console.log('定时器被清除');
+  }
 };
 </script>
 
@@ -58,10 +65,15 @@ export default {
   padding: 0;
 }
 .time_container {
+  user-select: none;
   position: relative;
   width: 587px;
   height: 110px;
-  background-color: orange;
+  background-color: #fff;
+  border: 1px solid skyblue;
+  border-radius: 10px;
+  /* overflow: hidden; */
+  /* background-color: orange; */
 }
 .time_left_top {
   position: absolute;
