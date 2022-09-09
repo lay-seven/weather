@@ -10,7 +10,8 @@
     <!-- 显示农历（开发中） -->
     <div class="time_right">
       <span class="tz">
-        {{ tz }}
+        {{ add.continent }}
+        {{add.location}}
       </span>
     </div>
   </div>
@@ -35,12 +36,30 @@ export default {
       min: "00",
       second: "00",
       timer1: null,
+      
+      // add:{
+      //   continent:'',
+      //   location:'',
+      // }
     };
   },
   computed: {
     ...mapState({
       tz: (state) => state.home.weather.tz,
     }),
+    add() {
+      let index = this.tz.indexOf('/');
+      let add = {
+        continent:'',
+        location:'',
+      }
+      if(index + 1) {
+        add.continent = this.tz.slice(0,index)
+        add.location = this.tz.slice(index + 1)
+        return add
+      }
+    },
+    
   },
   //   消除挂载前的000000
   created() {
@@ -134,10 +153,10 @@ export default {
   /* background-color: rgb(250, 179, 47); */
 }
 .tz {
-  display: table-cell;
+  /* display: table-cell;
+  vertical-align: middle; */
+  display: inline-block;
   vertical-align: middle;
-  /* display: inline-block;
-  vertical-align: middle;
-  line-height: 18px; */
+  line-height: 32px;
 }
 </style>
