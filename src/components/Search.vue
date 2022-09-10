@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     submit() {
-      if (this.inputCity.location ) {
+      if (this.inputCity.location.trim()) {
         // 修改isShow，展示weather界面
         this.$store.state.home.weather.isShow = false;
         // 储存城市名到状态管理库
