@@ -81,7 +81,7 @@ export default {
       this.hour = time.slice(8, 10);
       this.min = time.slice(10, 12);
       this.second = time.slice(12);
-      console.log("计时+1");
+      console.log("输出自Home/Time 84行 计时+1");
     }, 1000);
   },
   beforeDestroy() {

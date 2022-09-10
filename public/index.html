@@ -33,6 +33,18 @@
         "key": "faf6fecbf1c0479aa41b6bb99672555c"
       }
     }
+    //获取meta节点
+    let metaNode = document.querySelector('meta[name=viewport]');
+
+    //定义设计稿宽度为375
+    let designWidth = 720;
+
+    //计算当前屏幕的宽度与设计稿比例
+    let scale = document.documentElement.clientWidth / designWidth;
+
+    //通过设置meta元素中content的initial-scale值达到移动端适配
+    metaNode.content = "initial-scale=" + scale + ",minimum-scale=" + scale + ",maximum-scale=" + scale + ",user-scalable=no";
+
   </script>
   <script src="https://widget.qweather.net/standard/static/js/he-standard-common.js?v=2.0"></script>
   <div id="app"></div>
