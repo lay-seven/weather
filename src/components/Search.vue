@@ -6,20 +6,29 @@
     <!-- 此处为容器 -->
     <div id="wrapper">
       <div class="head">
-
         <!-- 搜索框上面的内容 -->
         <div class="search_top"></div>
 
         <!-- 后续加入动画效果 -->
         <!-- <transition name="search"> -->
-          <!-- 搜索部分 -->
-          <div class="search">
-            <input type="text" class="input" placeholder="请输入城市" v-model="inputCity.location"/>
-            <span class="btn_box">
-              <!-- 搜索按钮 -->
-              <input type="submit" @click="submit" class="btn_search" value="查询天气" />
-            </span>
-          </div>
+        <!-- 搜索部分 -->
+        <div class="search">
+          <input
+            type="text"
+            class="input"
+            placeholder="请输入城市"
+            v-model="inputCity.location"
+          />
+          <span class="btn_box">
+            <!-- 搜索按钮 -->
+            <input
+              type="submit"
+              @click="submit"
+              class="btn_search"
+              value="查询天气"
+            />
+          </span>
+        </div>
         <!-- </transition> -->
       </div>
     </div>
@@ -34,22 +43,24 @@ export default {
   data() {
     return {
       input: "",
-      inputCity:{
-        location:'',
+      inputCity: {
+        location: "",
       },
     };
   },
   methods: {
     submit() {
-      // 修改isShow，展示weather界面
-      this.$store.state.home.weather.isShow = false;
-      // 储存城市名到状态管理库
-      this.$store.state.home.city = this.inputCity.location;
-      // console.log(this.$store.state.home.city);
-      this.$store.dispatch('home/cityCode',this.inputCity);
-      // 清空搜索输入框
-      this.inputCity.location = '';
-    }
+      if (this.inputCity.location ) {
+        // 修改isShow，展示weather界面
+        this.$store.state.home.weather.isShow = false;
+        // 储存城市名到状态管理库
+        this.$store.state.home.city = this.inputCity.location;
+        // console.log(this.$store.state.home.city);
+        this.$store.dispatch("home/cityCode", this.inputCity);
+        // 如果输入了新内容，清空搜索输入框
+        this.inputCity.location = "";
+      }
+    },
   },
 };
 </script>
@@ -92,7 +103,7 @@ export default {
   text-align: start;
 }
 /* input框获取焦点时修改边框颜色 */
-.input:focus{
+.input:focus {
   border: 2px solid skyblue;
 }
 .btn_box {

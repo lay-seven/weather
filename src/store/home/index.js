@@ -39,7 +39,7 @@ const actions = {
             // console.log(locationId);
             let weather = await reqWeather(locationId);
             if (weather.code == 200) {
-                console.log(weather.now);
+                // console.log(weather.now);
                 commit('WEATHER', weather.now)
                 // console.log(weather.now);
             } else {
