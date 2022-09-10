@@ -25,7 +25,7 @@
           <div class="weather03_middle">风力:{{ windScale }}级</div>
           <div class="weather03_bottom">风速{{ windSpeed }} km/h</div>
         </div>
-        <div class="weather04">{{ greeting }}</div>
+        <div class="weather04">{{  }}</div>
       </div>
     </transition>
   </div>
@@ -117,13 +117,18 @@ export default {
           return require(`../../../assets/icons/351-fill.svg`);
       }
     },
-    greeting() {
-      // 欢迎语
-      let time = parseInt(this.$store.state.home.hour, 10);
-      if (time >= 0 && time < 11) return "早上好";
-      if (time >= 11 && time <= 14) return "中午好";
-      if (time >= 14 && time <= 18) return "下午好";
-      return "晚上好";
+    // greeting() {
+    //   // 欢迎语
+    //   // let time = parseInt(this.$store.state.home.hour, 10);
+      
+    //   // console.log(time);
+    //   if (time >= 0 && time < 11) return "早上好";
+    //   if (time >= 11 && time <= 14) return "中午好";
+    //   if (time >= 14 && time <= 18) return "下午好";
+    //   return "晚上好";
+    // },
+    mounted() {
+      console.log(this.$store.state);
     },
   },
 };
