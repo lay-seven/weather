@@ -11,7 +11,7 @@
     <div class="time_right">
       <span class="tz">
         {{ add.continent }}
-        {{add.location}}
+        {{ add.location }}
       </span>
     </div>
   </div>
@@ -36,30 +36,31 @@ export default {
       min: "00",
       second: "00",
       timer1: null,
-      
-      // add:{
-      //   continent:'',
-      //   location:'',
-      // }
+
     };
   },
   computed: {
     ...mapState({
       tz: (state) => state.home.weather.tz,
+      // hour: (state) => state.home.hour,
     }),
     add() {
-      let index = this.tz.indexOf('/');
+      let index = this.tz.indexOf("/");
       let add = {
-        continent:'',
-        location:'',
-      }
-      if(index + 1) {
-        add.continent = this.tz.slice(0,index)
-        add.location = this.tz.slice(index + 1)
-        return add
+        continent: "",
+        location: "",
+      };
+      if (index + 1) {
+        add.continent = this.tz.slice(0, index);
+        add.location = this.tz.slice(index + 1);
+        return add;
       }
     },
-    
+  },
+  watch:{
+    hour(newVal) {
+      this.$store.commit('SETHOUR',newVal)
+    }
   },
   //   消除挂载前的000000
   created() {
@@ -72,8 +73,6 @@ export default {
     this.second = time.slice(12);
   },
   mounted() {
-    // console.log(universal,tokyo,china);
-    // 开启定时器，每秒刷新时间
     this.timer1 = setInterval(() => {
       let time = dayjs().tz(this.tz).format("YYYYMMDDHHmmss");
       //   this.year = time.slice(0, 4);  //由于年份与月份变更太少，暂时写死

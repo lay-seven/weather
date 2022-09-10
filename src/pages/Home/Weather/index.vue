@@ -25,7 +25,7 @@
           <div class="weather03_middle">风力:{{ windScale }}级</div>
           <div class="weather03_bottom">风速{{ windSpeed }} km/h</div>
         </div>
-        <div class="weather04">{{  }}</div>
+        <div class="weather04">{{greeting}}</div>
       </div>
     </transition>
   </div>
@@ -33,6 +33,7 @@
 
 <script>
 import { mapState } from "vuex";
+
 export default {
   name: "Weather",
   computed: {
@@ -117,25 +118,21 @@ export default {
           return require(`../../../assets/icons/351-fill.svg`);
       }
     },
-    // greeting() {
-    //   // 欢迎语
-    //   // let time = parseInt(this.$store.state.home.hour, 10);
-      
-    //   // console.log(time);
-    //   if (time >= 0 && time < 11) return "早上好";
-    //   if (time >= 11 && time <= 14) return "中午好";
-    //   if (time >= 14 && time <= 18) return "下午好";
-    //   return "晚上好";
-    // },
-    mounted() {
-      console.log(this.$store.state);
+    greeting() {
+      // 欢迎语
+      let time = parseInt(this.$store.state.hour, 10);
+      // console.log(time);
+      if (time >= 0 && time < 11) return "早上好";
+      if (time >= 11 && time <= 14) return "中午好";
+      if (time >= 14 && time <= 18) return "下午好";
+      return "晚上好";
     },
   },
 };
 </script>
 
 <style>
-.weather_top_container{
+.weather_top_container {
   overflow: hidden;
 }
 .icons {
@@ -267,28 +264,28 @@ export default {
   font-size: 2em;
   line-height: 160px;
 }
-.weather-enter-active{
-		animation: animation1 0.5s ;
-	}
+.weather-enter-active {
+  animation: animation1 0.5s;
+}
 
-	.weather-leave-active{
-		animation: animation2 0.5s;
-	}
+.weather-leave-active {
+  animation: animation2 0.5s;
+}
 
-	@keyframes animation1 {
-		from{
-			transform: translateY(-100%);
-		}
-		to{
-			transform: translateY(0px);
-		}
-	}
-  @keyframes animation2 {
-		from{
-			transform: translateY(0px);
-		}
-		to{
-			transform: translateY(100%);
-		}
-	}
+@keyframes animation1 {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+@keyframes animation2 {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
 </style>

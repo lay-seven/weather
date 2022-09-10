@@ -83,7 +83,7 @@ const mutations = {
     },
     NOTFOUND(state) {
         alert('当前城市暂无数据')
-    }
+    },
 };
 
 
