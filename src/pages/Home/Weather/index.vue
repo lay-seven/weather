@@ -38,7 +38,7 @@ export default {
   computed: {
     ...mapState({
       isShow: (state) => state.home.weather.isShow,
-      cityName: (state) => state.home.city,
+      cityName: (state) => state.home.weather.cityName,
       icon: (state) => state.home.weather.icon,
       dew: (state) => state.home.weather.dew,
       feelsLike: (state) => state.home.weather.feelsLike, // 体感温度 1

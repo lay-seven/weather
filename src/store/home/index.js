@@ -4,7 +4,7 @@ import { reqCityCode, reqWeather } from '@/api'
 const state = {
     // key: '79ce89a7a9d2afcac3eb3ee3e9861698',
     heKey: '3167dcff0df247b2925882d0011099eb',
-    city: '',
+    // city: '',
     cityCode: {
         location: '',
     },
@@ -23,6 +23,7 @@ const state = {
         windScale: '',
         windSpeed: '',
         tz: 'Asia/Shanghai',
+        cityName:'',
         isShow: false,
     }
 };
@@ -32,7 +33,7 @@ const actions = {
     async cityCode({ commit }, inputCity) {
         let result = await reqCityCode(inputCity);
         if (result.code == 200) {
-            commit('TZ', result.location[0].tz)
+            commit('TZ', result.location[0])
             console.log(result);
             let locationId = { location: result.location[0].id };
             // console.log(locationId);
@@ -74,9 +75,11 @@ const mutations = {
         weather.windScale = weatherMsg.windScale;
         weather.windSpeed = weatherMsg.windSpeed;
     },
-    TZ({ weather }, tz) {
-        weather.tz = tz;
-        console.log(weather.tz);
+    // 提取返回的城市信息的数据
+    TZ({ weather }, location) {
+        weather.tz = location.tz;
+        weather.cityName = location.name;
+        // console.log(weather.tz);
     },
     NOTFOUND(state) {
         alert('当前城市暂无数据')
