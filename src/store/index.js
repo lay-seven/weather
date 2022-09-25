@@ -6,11 +6,16 @@ import home from './home';
 Vue.use(vuex);
 
 const state = {
-    hour:'',
+    hour: '',
+    background: 10001,
 }
 const mutations = {
     SETHOUR(state, hour) {
         state.hour = hour;
+    },
+    CHANGEIMAGE(state) {
+        state.background += 1;
+        if (state.background == 10004) state.background = 10001;
     }
 }
 
